@@ -11,6 +11,26 @@ import androidx.compose.ui.unit.dp
 internal const val DragMultiplier = 0.5f
 
 /**
+ * Creates a [PullRefreshState] that is remembered across compositions.
+ *
+ * Changes to [isRefreshing] will result in the [PullRefreshState] being updated.
+ *
+ * @param isRefreshing the value for [PullRefreshState.isRefreshing]
+ */
+@Composable
+fun rememberPullRefreshState(
+    isRefreshing: Boolean
+): PullRefreshState {
+    return remember {
+        PullRefreshState(
+            isRefreshing = isRefreshing
+        )
+    }.apply {
+        this.isRefreshing = isRefreshing
+    }
+}
+
+/**
  *
  * @param state the state object to be used to control or observe the [PullRefresh] state.
  * @param onRefresh Lambda which is invoked when a pull to refresh gesture is completed.
