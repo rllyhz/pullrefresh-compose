@@ -7,7 +7,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 
-
+/**
+ * A state object that can be hoisted to control and observe changes for [PullRefresh].
+ *
+ * In most cases, this will be created via [rememberPullRefreshState].
+ *
+ * @param isRefreshing the initial value for [PullRefreshState.isRefreshing]
+ */
 class PullRefreshState(
     isRefreshing: Boolean
 ) {
