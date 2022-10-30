@@ -15,11 +15,13 @@ import androidx.compose.ui.unit.dp
 fun CardItem(
     text: String,
     modifier: Modifier = Modifier,
+    backgroundColor: Color = Color.LightGray,
+    contentColor: Color = Color.Black,
 ) {
     Card(
         shape = MaterialTheme.shapes.medium,
-        backgroundColor = Color.LightGray,
-        contentColor = Color.Black,
+        backgroundColor = backgroundColor,
+        contentColor = contentColor,
         modifier = modifier,
     ) {
         Text(

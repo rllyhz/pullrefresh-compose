@@ -22,9 +22,9 @@ class PullRefreshModeSampleActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             PullToRefreshTheme {
-                // MainScreen(PullRefreshMode.Pinned)
-                // uncomment this to see the different
-                MainScreen(PullRefreshMode.Scrolling)
+                // uncomment these two screens to see the different
+                MainScreen(PullRefreshMode.Pinned)
+                //MainScreen(PullRefreshMode.Scrolling)
             }
         }
     }
