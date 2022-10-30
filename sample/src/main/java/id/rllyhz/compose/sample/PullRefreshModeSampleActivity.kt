@@ -60,12 +60,14 @@ fun MainScreen(pullRefreshMode: PullRefreshMode) {
                     .fillMaxSize(),
                 contentPadding = PaddingValues(vertical = 12.dp, horizontal = 8.dp)
             ) {
-                items(40) {
+                val itemCount = 40
+
+                items(itemCount) {
                     CardItem(
                         text = "Card " + (it + 1).toString(),
                         modifier = Modifier.fillMaxWidth(),
                     )
-                    if (it < 40) Spacer(modifier = Modifier.height(8.dp))
+                    if (it < (itemCount - 1)) Spacer(modifier = Modifier.height(8.dp))
                 }
             }
         }
