@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PullToRefresh">
         <activity
-            android:name=".MainActivity"
+            android:name=".PullRefreshModeSampleActivity"
             android:exported="true"
             android:theme="@style/Theme.PullToRefresh">
             <intent-filter>
