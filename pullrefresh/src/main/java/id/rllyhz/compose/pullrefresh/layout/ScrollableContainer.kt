@@ -8,16 +8,16 @@ import id.rllyhz.compose.pullrefresh.PullRefreshState
 import id.rllyhz.compose.pullrefresh.rememberUpdatedSlingshot
 
 /**
- * Scrollable composable which is scrolling container of [PullRefresh]'s content block.
+ * Scrollable composable which is scrolling container of content block.
  *
  * @param state The state of [PullRefreshState] the content should adapt to.
  */
 @Composable
-fun ScrollableContainer(
+internal fun ScrollableContainer(
     state: PullRefreshState,
     refreshTriggerDistance: Dp,
     refreshingOffset: Dp,
-    content: @Composable () -> Unit,
+    content: @Composable (offset: Float) -> Unit,
 ) {
     val refreshingOffsetPx = with(LocalDensity.current) { refreshingOffset.toPx() }
     val refreshTrigger = with(LocalDensity.current) { refreshTriggerDistance.toPx() }
@@ -48,5 +48,5 @@ fun ScrollableContainer(
         }
     }
 
-    content()
+    content(offset)
 }
