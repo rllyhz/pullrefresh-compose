@@ -8,6 +8,11 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.Dp
 import id.rllyhz.compose.pullrefresh.PullRefreshState
 
+/**
+ * Container for scrolling the loading.
+ *
+ * @param state The state of [PullRefreshState] the content should adapt to.
+ */
 @Composable
 internal fun LoadingContainer(
     state: PullRefreshState,

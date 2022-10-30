@@ -7,6 +7,11 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.Dp
 import id.rllyhz.compose.pullrefresh.PullRefreshState
 
+/**
+ * Container for scrolling the content.
+ *
+ * @param state The state of [PullRefreshState] the content should adapt to.
+ */
 @Composable
 internal fun ContentContainer(
     state: PullRefreshState,
