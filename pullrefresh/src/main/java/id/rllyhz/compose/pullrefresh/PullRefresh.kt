@@ -1,12 +1,16 @@
 package id.rllyhz.compose.pullrefresh
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import id.rllyhz.compose.pullrefresh.layout.ContentContainer
+import id.rllyhz.compose.pullrefresh.layout.LoadingContainer
 
 internal const val DragMultiplier = 0.5f
 
@@ -88,7 +92,32 @@ fun PullRefresh(
             .nestedScroll(connection = nestedScrollConnection)
     ) {
         // loading block goes here
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(loadingContainerMaxHeight)
+        ) {
+            if (mode == PullRefreshMode.Pinned) {
+                loading(state)
+            } else if (mode == PullRefreshMode.Scrolling) {
+                LoadingContainer(
+                    state = state,
+                    refreshTriggerDistance = refreshTriggerDistance,
+                    refreshingOffset = loadingContainerMaxHeight,
+                    maxHeight = loadingContainerMaxHeight,
+                ) {
+                    loading(state)
+                }
+            }
+        }
 
         // content block goes here
+        ContentContainer(
+            state,
+            refreshTriggerDistance,
+            loadingContainerMaxHeight,
+        ) {
+            content()
+        }
     }
 }
