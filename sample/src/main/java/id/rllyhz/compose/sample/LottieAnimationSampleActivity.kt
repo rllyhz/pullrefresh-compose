@@ -55,7 +55,7 @@ private fun MainScreen(animationType: AnimationType) {
 
     LaunchedEffect(isRefreshing) {
         if (isRefreshing) {
-            delay(10000)
+            delay(3000)
             isRefreshing = false
         }
     }
