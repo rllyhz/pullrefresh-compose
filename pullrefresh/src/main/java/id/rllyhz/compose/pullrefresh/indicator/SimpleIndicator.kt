@@ -34,13 +34,12 @@ fun SimpleIndicator(
     gap: Dp = 10.dp,
     animationType: AnimationType = AnimationType.Pulse,
     durationInMillis: Int = 500,
-    delayInMillis: Int = 300,
     easing: Easing? = null,
 ) {
     Box(
         modifier = Modifier
             .fillMaxSize(),
-        contentAlignment = Alignment.Center,
+        contentAlignment = Alignment.BottomCenter,
     ) {
         val keyframes = when (animationType) {
             AnimationType.Pulse -> listOf(0f, 0.42f, 0.60f)
@@ -54,16 +53,14 @@ fun SimpleIndicator(
         // easing function could be customized
 
         AnimatedVisibility(
-            visible = (state.isPullInProgress || state.isRefreshing),
-            enter = fadeIn(
-                tween(durationInMillis, delayInMillis)
-            ),
+            visible = (state.isPullInProgress || state.isPullInProgress || state.isRefreshing),
+            enter = fadeIn(tween(1000)),
             exit = fadeOut(
                 tween(200)
             ),
         ) {
             Row(
-                horizontalArrangement = Arrangement.Center,
+                horizontalArrangement = Arrangement.Center
             ) {
                 // set the total of indicator for simplicity
                 repeat(3) { index ->
@@ -74,6 +71,7 @@ fun SimpleIndicator(
 
                     if (isMiddleIndicator) Spacer(modifier = Modifier.width(gap))
                     ShapeIndicator(
+                        state.isRefreshing,
                         animationType,
                         size,
                         durationInMillis,
@@ -92,6 +90,7 @@ fun SimpleIndicator(
 
 @Composable
 private fun ShapeIndicator(
+    playAnimation: Boolean,
     animationType: AnimationType,
     size: Dp,
     durationInMillis: Int,
@@ -101,49 +100,82 @@ private fun ShapeIndicator(
     shape: Shape,
     elevation: Dp,
 ) {
-    val initialValue = when (animationType) {
-        AnimationType.Pulse -> 0.6f
-        AnimationType.Wave -> 8.4f
-    }
+    if (playAnimation) {
 
-    val targetValue = when (animationType) {
-        AnimationType.Pulse -> 1.25f
-        AnimationType.Wave -> -8.4f
-    }
+        val initialValue = when (animationType) {
+            AnimationType.Pulse -> 0.6f
+            AnimationType.Wave -> 8.4f
+        }
 
-    val infiniteTransition = rememberInfiniteTransition()
+        val targetValue = when (animationType) {
+            AnimationType.Pulse -> 1.25f
+            AnimationType.Wave -> -8.4f
+        }
 
-    val adjustScale by infiniteTransition.animateFloat(
-        initialValue = initialValue,
-        targetValue = targetValue,
-        animationSpec = infiniteRepeatable(
-            animation = tween(
-                durationMillis = durationInMillis,
-                easing = easing,
-            ),
-            repeatMode = RepeatMode.Reverse,
-            initialStartOffset = StartOffset(keyframe, StartOffsetType.Delay)
+        val infiniteTransition = rememberInfiniteTransition()
+
+        val adjustScaleXYOrOffsetY by infiniteTransition.animateFloat(
+            initialValue = initialValue,
+            targetValue = targetValue,
+            animationSpec = infiniteRepeatable(
+                animation = tween(
+                    durationMillis = durationInMillis,
+                    easing = easing,
+                ),
+                repeatMode = RepeatMode.Reverse,
+                initialStartOffset = StartOffset(keyframe, StartOffsetType.Delay)
+            )
         )
-    )
 
-    Surface(
-        modifier = Modifier
-            .size(size)
-            .run {
-                when (animationType) {
-                    AnimationType.Pulse -> {
-                        scale(adjustScale)
-                    }
-                    AnimationType.Wave -> {
-                        graphicsLayer {
-                            translationY = adjustScale
-                        }
-                    }
-                }
-            },
-        shape = shape,
-        color = color,
-        elevation = elevation,
-        content = {}
-    )
+        when (animationType) {
+            AnimationType.Pulse -> {
+                Surface(
+                    shape = shape,
+                    color = color,
+                    elevation = elevation,
+                    modifier = Modifier
+                        .size(size)
+                        .scale(adjustScaleXYOrOffsetY),
+                    content = {}
+                )
+            }
+            AnimationType.Wave -> {
+                Surface(
+                    shape = shape,
+                    color = color,
+                    elevation = elevation,
+                    modifier = Modifier
+                        .size(size)
+                        .graphicsLayer {
+                            translationY = adjustScaleXYOrOffsetY
+                        },
+                    content = {}
+                )
+            }
+        }
+        //
+    } else {
+        when (animationType) {
+            AnimationType.Pulse -> {
+                Surface(
+                    shape = shape,
+                    color = color,
+                    elevation = elevation,
+                    modifier = Modifier
+                        .size(size),
+                    content = {}
+                )
+            }
+            AnimationType.Wave -> {
+                Surface(
+                    shape = shape,
+                    color = color,
+                    elevation = elevation,
+                    modifier = Modifier
+                        .size(size),
+                    content = {}
+                )
+            }
+        }
+    }
 }
