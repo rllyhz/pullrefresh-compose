@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PullToRefresh">
         <activity
-            android:name=".SimpleIndicatorSampleActivity"
+            android:name=".LottieAnimationSampleActivity"
             android:exported="true"
             android:theme="@style/Theme.PullToRefresh">
             <intent-filter>
@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".PullRefreshModeSampleActivity" />
+        <activity android:name=".SimpleIndicatorSampleActivity" />
     </application>
 
 </manifest>
