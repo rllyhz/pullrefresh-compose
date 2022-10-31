@@ -51,6 +51,10 @@ internal class PullRefreshNestedConnection(
             state.isPullInProgress = false
         }
 
+        // If the user scrolling and has already reached the trigger offset
+        state.isAbleToRelease =
+            !state.isRefreshing && state.isPullInProgress && state.scrollableOffset >= refreshTrigger
+
         val newOffset = (available.y * DragMultiplier + state.scrollableOffset).coerceAtLeast(0f)
         val dragConsumed = newOffset - state.scrollableOffset
 

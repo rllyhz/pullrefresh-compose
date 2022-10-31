@@ -32,6 +32,12 @@ class PullRefreshState(
         internal set
 
     /**
+     * Whether a pull/dragDown is already able to release.
+     */
+    var isAbleToRelease: Boolean by mutableStateOf(false)
+        internal set
+
+    /**
      * The current offset for the scrollable, in pixels.
      */
     val scrollableOffset: Float get() = _scrollableOffset.value
