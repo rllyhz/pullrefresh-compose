@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'maven-publish'
 }
 
 android {
@@ -39,4 +40,16 @@ android {
 dependencies {
     implementation "androidx.compose.ui:ui:$compose_ui_version"
     implementation "androidx.compose.material:material:$material_ui_version"
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                groupId = 'com.github.rllyhz'
+                artifactId = 'pullrefresh-compose'
+                version = android.defaultConfig.versionName
+            }
+        }
+    }
 }
