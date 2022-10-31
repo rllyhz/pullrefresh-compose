@@ -46,9 +46,11 @@ afterEvaluate {
     publishing {
         publications {
             release(MavenPublication) {
+                from components.release
+
                 groupId = 'com.github.rllyhz'
                 artifactId = 'pullrefresh-compose'
-                version = android.defaultConfig.versionName
+                version = '0.1.0'
             }
         }
     }
