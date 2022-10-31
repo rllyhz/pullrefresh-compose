@@ -16,7 +16,6 @@ import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import id.rllyhz.compose.pullrefresh.PullRefresh
 import id.rllyhz.compose.pullrefresh.PullRefreshMode
-import id.rllyhz.compose.pullrefresh.indicator.AnimationType
 import id.rllyhz.compose.pullrefresh.rememberPullRefreshState
 import id.rllyhz.compose.sample.ui.theme.PullToRefreshTheme
 import id.rllyhz.compose.sample.ui.widget.CardItem
@@ -28,17 +27,14 @@ class LottieAnimationSampleActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             PullToRefreshTheme {
-                // uncomment these two screens to see the different
-
-                // MainScreen(AnimationType.Pulse)
-                MainScreen(AnimationType.Wave)
+                MainScreen()
             }
         }
     }
 }
 
 @Composable
-private fun MainScreen(animationType: AnimationType) {
+private fun MainScreen() {
     var isRefreshing by remember { mutableStateOf(false) }
 
     // for lottie animation

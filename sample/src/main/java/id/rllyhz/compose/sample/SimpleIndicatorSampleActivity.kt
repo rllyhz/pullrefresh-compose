@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import id.rllyhz.compose.pullrefresh.PullRefresh
 import id.rllyhz.compose.pullrefresh.PullRefreshMode
@@ -49,7 +50,11 @@ private fun MainScreen(animationType: AnimationType) {
         PullRefresh(
             state = rememberPullRefreshState(isRefreshing),
             loading = { state ->
-                SimpleIndicator(state, animationType = animationType)
+                SimpleIndicator(
+                    state,
+                    animationType = animationType,
+                    indicatorColors = listOf(Color.LightGray, Color.LightGray, Color.LightGray)
+                )
             },
             mode = PullRefreshMode.Scrolling,
             loadingContainerMaxHeight = 42.dp,

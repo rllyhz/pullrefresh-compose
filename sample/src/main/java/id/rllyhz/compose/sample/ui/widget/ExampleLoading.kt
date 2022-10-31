@@ -12,19 +12,16 @@ fun ExampleLoading(
     state: PullRefreshState,
     modifier: Modifier = Modifier,
 ) {
-    if (state.isRefreshing) {
-        Box(
-            modifier,
-            contentAlignment = Alignment.Center
-        ) {
+    Box(
+        modifier,
+        contentAlignment = Alignment.BottomCenter
+    ) {
+        if (state.isRefreshing) {
             Text("Fetching new data...")
-        }
-    } else if (state.isPullInProgress) {
-        Box(
-            modifier,
-            contentAlignment = Alignment.Center
-        ) {
-            Text("Pull down to refresh")
+        } else if (state.isAbleToRelease && state.isPullInProgress) {
+            Text("Release to refresh")
+        } else if (state.isPullInProgress) {
+            Text("Pull more to refresh")
         }
     }
 }
