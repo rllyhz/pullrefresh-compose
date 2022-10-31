@@ -23,7 +23,6 @@ class PullRefreshModeSampleActivity : ComponentActivity() {
         setContent {
             PullToRefreshTheme {
                 // uncomment these two screens to see the different
-
                 // MainScreen(PullRefreshMode.Pinned)
                 MainScreen(PullRefreshMode.Scrolling)
             }
@@ -32,7 +31,7 @@ class PullRefreshModeSampleActivity : ComponentActivity() {
 }
 
 @Composable
-private fun MainScreen(pullRefreshMode: PullRefreshMode) {
+fun MainScreen(pullRefreshMode: PullRefreshMode) {
     var isRefreshing by remember { mutableStateOf(false) }
 
     LaunchedEffect(isRefreshing) {

@@ -11,28 +11,29 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import id.rllyhz.compose.pullrefresh.PullRefresh
 import id.rllyhz.compose.pullrefresh.PullRefreshMode
+import id.rllyhz.compose.pullrefresh.indicator.AnimationType
+import id.rllyhz.compose.pullrefresh.indicator.SimpleIndicator
 import id.rllyhz.compose.pullrefresh.rememberPullRefreshState
 import id.rllyhz.compose.sample.ui.theme.PullToRefreshTheme
 import id.rllyhz.compose.sample.ui.widget.CardItem
-import id.rllyhz.compose.sample.ui.widget.ExampleLoading
 import kotlinx.coroutines.delay
 
-class PullRefreshModeSampleActivity : ComponentActivity() {
+class SimpleIndicatorSampleActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             PullToRefreshTheme {
                 // uncomment these two screens to see the different
 
-                // MainScreen(PullRefreshMode.Pinned)
-                MainScreen(PullRefreshMode.Scrolling)
+                // MainScreen(AnimationType.Pulse)
+                MainScreen(AnimationType.Wave)
             }
         }
     }
 }
 
 @Composable
-private fun MainScreen(pullRefreshMode: PullRefreshMode) {
+private fun MainScreen(animationType: AnimationType) {
     var isRefreshing by remember { mutableStateOf(false) }
 
     LaunchedEffect(isRefreshing) {
@@ -48,9 +49,9 @@ private fun MainScreen(pullRefreshMode: PullRefreshMode) {
         PullRefresh(
             state = rememberPullRefreshState(isRefreshing),
             loading = { state ->
-                ExampleLoading(state, Modifier.fillMaxSize())
+                SimpleIndicator(state, animationType = animationType)
             },
-            mode = pullRefreshMode,
+            mode = PullRefreshMode.Scrolling,
             loadingContainerMaxHeight = 42.dp,
             onRefresh = { isRefreshing = !isRefreshing },
             modifier = Modifier
